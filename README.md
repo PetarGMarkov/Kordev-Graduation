@@ -1,2 +1,2 @@
 # Kordev-Graduation
-A rogue-like game called "Gratuation" with TUES theme.
+A rogue-like game called "Graduation" with TUES theme.
