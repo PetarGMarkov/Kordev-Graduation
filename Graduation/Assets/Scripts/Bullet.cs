@@ -17,6 +17,6 @@ public class Bullet : MonoBehaviour
     void Update()
     {
         rb.velocity = new Vector2 (VelX, VelY);
-        Destroy (gameObject, 4f);
+        Destroy (gameObject, 1f);
     }
 }

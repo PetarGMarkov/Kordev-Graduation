@@ -15,15 +15,27 @@ public class movement : MonoBehaviour
 		float HorizontalMovement = 0f;
 		HorizontalMovement *= Time.deltaTime;
 		VerticalMovement *= Time.deltaTime;
-		
-			VerticalMovement = Input.GetAxis("Vertical")*speed;
+			if(Input.GetKey("w")){
+			VerticalMovement =speed;
 			VerticalMovement *= Time.deltaTime;
 			transform.Translate(0,VerticalMovement,0);
-			HorizontalMovement = Input.GetAxis("Horizontal")*speed;
+			}
+			if(Input.GetKey("s")){
+			VerticalMovement =-speed;
+			VerticalMovement *= Time.deltaTime;
+			transform.Translate(0,VerticalMovement,0);
+			}
+			if(Input.GetKey("d")){
+			HorizontalMovement = speed;
 			HorizontalMovement *= Time.deltaTime;
 			transform.Translate(HorizontalMovement,0,0);
-		
-		if (Input.GetMouseButtonDown(0) && Time.time > nextFire){
+			}
+			if(Input.GetKey("a")){
+			HorizontalMovement = -speed;
+			HorizontalMovement *= Time.deltaTime;
+			transform.Translate(HorizontalMovement,0,0);
+			}
+		if (Input.GetKeyUp("up") || Input.GetKeyUp("down") || Input.GetKeyUp("left") || Input.GetKeyUp("right") && Time.time > nextFire){
 			nextFire = Time.time + fireRate;
 			fire();
 		}
@@ -32,18 +44,18 @@ public class movement : MonoBehaviour
 		var MousePosition = Input.mousePosition;
 		var PlayerPosition = Camera.main.WorldToScreenPoint(transform.position);
 		BulletPos = transform.position;
-		if (MousePosition.x > PlayerPosition.x && PlayerPosition.x/(MousePosition.x+1) < PlayerPosition.y/MousePosition.y){
+		if (Input.GetKeyUp("right")){
 			BulletPos += new Vector2 (0.1f, 0f);
 			Instantiate(BulletToRight, BulletPos, Quaternion.identity);
-		}else if(MousePosition.x < PlayerPosition.x && PlayerPosition.x/MousePosition.x >PlayerPosition.y/(MousePosition.y+1)){
-			BulletPos += new Vector2 (-0.3f, 0f);
+		}else if(Input.GetKeyUp("left")){
+			BulletPos += new Vector2 (-0.1f, 0f);
 			Instantiate(BulletToLeft, BulletPos, Quaternion.identity);
 		}
-		if (MousePosition.y>PlayerPosition.y&& PlayerPosition.x/MousePosition.x > PlayerPosition.y/(MousePosition.y+1)){
-			BulletPos += new Vector2 (0.5f, 0f);
+		if (Input.GetKeyUp("up")){
+			BulletPos += new Vector2 (0.04f, 0.05f);
 			Instantiate(BulletUp, BulletPos, Quaternion.identity);
-		}else if (MousePosition.y<PlayerPosition.y && PlayerPosition.x/(MousePosition.x+1) < PlayerPosition.y/MousePosition.y){
-			BulletPos += new Vector2 (-0.5f, 0f);
+		}else if (Input.GetKeyUp("down")){
+			BulletPos += new Vector2 (0.04f, -0.05f);
 			Instantiate(BulletDown, BulletPos, Quaternion.identity);
 		}
 	}
